@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-sm-4">
+    <input #gb type="text" class="form-control text1" placeholder="Global search">
+  </div>
+  <div class="col-sm-8">
+    <button class="btn btn-primary btn-round  btn-right" autofocus="true" title="Add" (click)="Add()">Add FAQ</button>
+  </div>
+</div><br>
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Customer FAQ List'" [classHeader]="true" [blockClass]="'table-border-style'">
+      <div class="table-responsive">
+        <p-dataTable #dt [value]="faqs" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [paginator]="true"
+          [pageLinks]="3" [globalFilter]="gb">
+          
+          <p-column *ngIf="dt.isEmpty()" header="No records found"></p-column>
+          <p-column header="Sr.No." *ngIf="!dt.isEmpty()" [style]="{width:'7%','text-align':'center'}">
+            <ng-template let-i="rowIndex" pTemplate="body">
+              {{i+1}}
+            </ng-template>
+          </p-column>
+          <p-column field="question" header="Question" *ngIf="!dt.isEmpty()" [style]="{width:'30%'}" [sortable]="true">
+            <ng-template let-row="rowData" let-i="rowIndex" pTemplate="body">
+              <div class="big_width">
+                {{row.question}}
+              </div>
+            </ng-template>
+          </p-column>
+
+          <p-column field="answer" header="Answer" *ngIf="!dt.isEmpty()" [sortable]="true">
+            <ng-template let-row="rowData" let-i="rowIndex" pTemplate="body">
+              <div class="big_width">
+                <div [innerHTML]="row.answer">{{row.answer}}</div>
+              </div>
+            </ng-template>
+          </p-column>
+          <p-column field="create_date" header="Created Date" *ngIf="!dt.isEmpty()" [sortable]="true"  [style]="{width:'15%'}">
+            <ng-template let-row="rowData" pTemplate="body">
+              {{row.create_date | date : "yyyy-MM-dd"}}
+            </ng-template>
+          </p-column>
+          <!-- <p-column field="language_code" header="Language Code" [style]="{width:'20%'}" *ngIf="!dt.isEmpty()" [sortable]="true">
+              <ng-template let-row="rowData" let-i="rowIndex" pTemplate="body">
+                  <div [innerHTML]="row.language_code">{{row.language_code}}</div>
+              </ng-template>
+            </p-column> -->
+          <p-column header="Action" [style]="{'text-align':'center'}" *ngIf="!dt.isEmpty()">
+            <ng-template let-faq="rowData" let-i="rowIndex" pTemplate="body">
+              <a (click)="editFaq(faq._id)">
+                <button class="btn btn-delete btn-primary" title="Edit" type="button">
+                  <i class="fa fa-edit"></i>
+                </button>
+              </a>&nbsp;&nbsp;
+              <a href="javascript:;" (click)="delete(faq._id)">
+                <button class="btn btn-delete btn-danger" title="Delete" type="button">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </a>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+      </div>
+    </app-card>
+  </div>
+</div>

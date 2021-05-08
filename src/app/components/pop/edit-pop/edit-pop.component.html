@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card >
+
+      
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <h6 title="Title">Title<sup>*</sup></h6>
+          <input type="text" placeholder="Enter Title" title="Edit Title" class="form-control" name="title"  [(ngModel)]="pop.title"
+            id="title">
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <h6 title="Location">Location<sup>*</sup></h6>
+          <textarea class="form-control" placeholder="Enter Location" title="Edit Location" name="location"  [(ngModel)]="pop.address"
+            id="location"></textarea>
+
+        </div>
+        <div class="col-sm-6">
+          <h6 title="Description">Description</h6>
+          <textarea class="form-control" placeholder="Enter Description" title="Edit Description" name="description"  [(ngModel)]="pop.description"
+            id="address"></textarea>
+        </div>
+      </div>
+    
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <h6 title="Navigation Tips">Navigation Tips</h6>
+          <input type="text" placeholder="Enter Navigation Tips" title="Edit Navigation Tips" class="form-control" name="address"  [(ngModel)]="pop.navigationTips"
+            id="address">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <h6 title="Accessibility">Accessibility</h6>
+            <select  class="form-control" placeholder="Select Accessibility" title="Edit Accessibility" name="accessibility" [(ngModel)]="pop.accessibility" id="materials">
+              
+                <option value="Easy">Easy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Hard">Hard</option>
+            </select>      
+        </div></div>
+        <div class="form-group row">
+            <div class="col-md-12">
+              <h6 title="Hours For Painting">Hour For Painting</h6>
+             <div class="checkbox" style="display: inline-block">
+              <label style="margin: 0 20px 0 0;">
+                  <input type="checkbox" title="Check Morning" [checked]="ismorning" (change)="onCheckboxChange('Morning',$event)" name="Morning" value="Morning"/> Morning
+              </label>
+              <label style="margin: 0 20px 0 0;">
+                <input type="checkbox" title="Check Afternoon" [checked]="issunset" name="Afternoon"  value="Afternoon" (change)="onCheckboxChange('Afternoon',$event)"/> Afternoon
+            </label>
+              <label style="margin: 0 20px 0 0;">
+                  <input type="checkbox" title="Check Midday"[checked]="ismidday" name="Midday" value="Midday" (change)="onCheckboxChange('Midday',$event)" /> Midday
+              </label>
+              </div>
+
+            </div></div>
+
+        <div class="form-group row">
+            <div style="padding-left: 15px;"class="col-md-12">
+              <h6 title="Images">Images</h6>
+              <label class="fileContainer" >
+                <input type="file" title="Upload New Images" (change)="onSelectFile1($event,'photo')" Multiple="Multiple" />
+             </label>
+            </div>
+        <div class="col-md-12">
+            <ul *ngIf="pop.photo!= ''" style="display:inline-block">
+  
+              <li> <img *ngFor="let photo of pop.photo" src="{{photoApiEndPoint+photo.image}}" width="70px" height="70px"
+                  style="margin: 2px" title="View Image" >&nbsp;&nbsp;</li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div style="padding-left: 15px;"class="col-md-12">
+            <h6 title="Images">Paintings</h6>
+            <label class="fileContainer" >
+              <input type="file" title="Upload New Images" (change)="onSelectFile1($event,'painting')" Multiple="Multiple" />
+           </label>
+          </div>
+      <div class="col-md-12">
+          <ul *ngIf="pop.painting!= ''" style="display:inline-block">
+
+            <li> <img *ngFor="let photo of pop.painting" src="{{photoApiEndPoint+photo.image}}" width="70px" height="70px"
+                style="margin: 2px" title="View Image" >&nbsp;&nbsp;</li>
+          </ul>
+        </div>
+      </div>
+        <div class="form-group row" >
+            <div class="col-sm-12">
+              <button type="submit" title="Update" (click)="submit()" class="btn btn-primary btn-right"
+               >Update</button>
+              <button type="button" title="cancel" class="btn btn-danger btn-right" (click)="Cancle()">Cancel</button>
+    
+            </div>
+          </div>
+      </app-card>
+      </div>
+      </div>

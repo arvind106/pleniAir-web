@@ -1,0 +1,210 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <h6 title="Session Type">Session Type<sup>*</sup></h6>
+          <input type="text" class="form-control" title="Edit Session Type" name="edit new outdoor session type"
+            [(ngModel)]="session.SessionType" id="type" readonly>
+        </div>
+        <div class="col-sm-6">
+          <h6>Title<sup>*</sup></h6>
+          <input type="text" class="form-control" title="Edit Title" name="title" [(ngModel)]="session.title"
+            id="title">
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <h6 title="Address">Address</h6>
+          <textarea class="form-control" title="Edit Address" name="address" [(ngModel)]="session.address"
+            id="address"></textarea>
+        </div>
+        <div class="col-md-6">
+          <h6 title="Description">Description</h6>
+          <textarea class="form-control" title="Edit Description" name="description" [(ngModel)]="session.description"
+            id="description"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-left: 15px;" class="col-md-12">
+          <h6 title="Images">Images</h6>
+          <label class="fileContainer">
+            <input type="file" title="Upload New Images" (change)="onSelectFile1($event)" Multiple="Multiple" />
+
+          </label>
+        </div>
+        <div class="col-md-12">
+          <ul *ngIf="session.photo!= ''" style="display:inline-block">
+
+            <li> <img *ngFor="let photo of session.photo" src="{{photoApiEndPoint+photo.image}}" width="70px" height="70px"
+                style="margin: 2px" title="View Image">&nbsp;&nbsp;</li>
+          </ul>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <h6 title="Cost">Cost<sup>*</sup></h6>
+          <select class="form-control" (change)="change($event)" title="Edit Cost" name="cost"
+            [(ngModel)]="session.cost" id="cost">
+            <option value="Free">Free</option>
+            <option value="With charge">With charge</option>
+            <option value="Contact Me">Contact Me for more detail</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <h6 title="Cost Amount">Cost Amount<sup>*</sup></h6>
+          <input type="text" [readOnly]="iscost ? 'readonly' : ''" title="Edit Cost Amount" class="form-control"
+            name="costAmount" [(ngModel)]="session.costAmount" (keypress)="keyPress($event)" id="cost" maxlength="5"
+            min="1" max="10000">
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <h6 title="Currency" *ngIf="!iscost ? 'disabled' : ''">Currency<sup>*</sup></h6>
+          <!-- <div *ngIf="!iscost ? 'disabled' : ''" style="display: inline-block;">
+                <a *ngIf="!istrue" href="javascript:;" title="Add New Currency"  (click)="add()" style="display: inline-block; margin: 0 0 0 20px;">Add New Currency</a>
+                <a *ngIf="istrue" href="javascript:;" title="Add New Currency" (click)="cancleCurrency()" style="display: inline-block; margin: 0 0 0 20px;">Hide New Currency</a>
+              </div>  -->
+          <div class="row">
+            <div class="col-sm-10">
+              <select class="form-control" title="Edit Currency" *ngIf="!iscost ? 'disabled' : ''" name="currency"
+                [(ngModel)]="session.currency">
+                <option value="">Select Currency</option>
+                <option *ngFor="let c of allCurrency" value="{{c.currency}}" selected="session.currency">{{c.currency}}
+                </option>
+              </select>
+            </div>
+            <!-- <div class="col-sm-2">
+                    <button type="button" *ngIf="!iscost ? 'Hide':''" title="Delete Selected" class="btn btn-danger btn-right" (click)="deleteCurrency()" style="padding: 7px 15px;"><i class="fa fa-trash"></i></button>
+                </div>  -->
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <span *ngIf="istrue">
+            <h6>Add Currency</h6>
+            <div class="row">
+              <div class="col-sm-8">
+                <input type="text" title="Add Currency" class="form-control" name="currency" [(ngModel)]="cureency"
+                  id="cost">
+              </div>
+              <div class="col-sm-2">
+                <button type="button" title="Add" (click)="addCurrency()" class="btn btn-primary btn-right"
+                  style="padding: 7px 15px;"><i class="fa fa-plus"></i></button>
+              </div>
+            </div>
+
+          </span>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <div class="col-md-6">
+          <h6 title="Materials">Materials<sup>*</sup></h6>
+
+          <select class="form-control" title="Edit Materials" name="materials" [(ngModel)]="session.materials"
+            id="materials">
+            <option value="">Select Materials</option>
+            <option value="Bring your own">Bring your own</option>
+            <option value="Supplied by initiator">Supplied by initiator</option>
+          </select>
+
+        </div>
+        <div class="col-md-6">
+          <h6 title="Maximum Pariticipation">Max Participations<sup>*</sup></h6>
+          <input type="text" maxlength="" title="Edit Participations" class="form-control" name="max participations"
+            [(ngModel)]="session.maxParticipations" id="max participations" (keypress)="keyPress($event)"
+            id="participations" max="500" maxlength="3">
+          <!-- <label style="margin: 0 20px 0 0;" >
+                  <input type="checkbox" title="Unlimited" [(ngModel)]="session.maxParticipations"  (change)="onCheckboxChange('Unlimtied',$event)" name="Unlimited" value="Unlimited"/>Unlimited
+              </label> -->
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="isRequired">
+        <div class="col-md-6">
+          <h6 title="Email">Email<sup>*</sup></h6>
+          <input type="text" title="Edit Email" class="form-control" name="email" [(ngModel)]="session.email"
+            id="email">
+
+        </div>
+        <div class="col-md-6">
+          <h6 title="Contact No">Contact No<sup>*</sup></h6>
+          <input type="text" title="Edit Contact No" minlength="8" maxlength="15" class="form-control" name="conatct no"
+            [(ngModel)]="session.contactNo" id="Conatct No" (keypress)="keyPress($event)">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <h6 title="Starting Date and Time"> Session Starting Date And Time<sup>*</sup></h6>
+          <p-calendar [monthNavigator]="true" title="Edit Stating Date and Time" (onSelect)="notifyChangeDate();"
+            [yearNavigator]="true" yearRange="2000:{{getyear}}" [(ngModel)]="selectStartDate" dataType='date' 
+            showTime="true" hourFormat="24" [inputStyle]="{'width':'400px','display': 'inline-block'}" [showIcon]="true"
+            placeholder="Select Date" showButtonBar="true" [showOtherMonths]="true"></p-calendar>
+        </div>
+        <div class="col-sm-6">
+          <h6 title="Finishing Date and Time"> Session Finishing Date And Time<sup>*</sup></h6>
+          <p-calendar [monthNavigator]="true" title="Edit Finishing Date and Time" yearRange="2000:{{getyear}}"
+            [yearNavigator]="true" [(ngModel)]="selectFinishDate"
+            [inputStyle]="{'width':'400px','display': 'inline-block','height':'parent'}" dataType='date' showTime="true"
+            hourFormat="24" [inputStyle]="{'width':'460px','display': 'inline-block'}" [showIcon]="true"
+            placeholder="Select Date" showButtonBar="true" [showOtherMonths]="true" [selectOtherMonths]="true"
+            (onSelect)="notifyFinishDate();"></p-calendar>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <h6 title="Session Period">Session Time Table:</h6>
+        </div>
+      </div>
+
+      <div class="p-grid" style="margin-top: .5em">
+        <div class="p-col btm_calender_box" *ngFor="let col of session.sessionPeriod, let i=index"
+          [@animation]="'visible'">
+          <div class="form-group row">
+
+            <div class="col-sm-6">
+              <h6 title="Starting Date and Time">Starting Date And Time</h6>
+              <p-calendar [monthNavigator]="true" yearRange="2000:{{getyear}}" title="Edit Session Period"
+                [yearNavigator]="true" [(ngModel)]="sessionPeriod[i].startTime" dataType='date' showTime="true"
+                hourFormat="24" [inputStyle]="{'width':'400px','display': 'inline-block','height':'parent'}"
+                [showIcon]="true" placeholder="Select Start Date" showButtonBar="true" [showOtherMonths]="true"
+                [selectOtherMonths]="true"></p-calendar>
+            </div>
+            <div class="col-sm-6">
+              <h6 title="Finishing Date and Time">Finishing Date And Time</h6>
+              <p-calendar [monthNavigator]="true" title="Edit Session Period" [yearNavigator]="true"
+                [(ngModel)]="sessionPeriod[i].finishTime" yearRange="2000:{{getyear}}" dataType='date' showTime="true"
+                hourFormat="24" [inputStyle]="{'width':'400px','display': 'inline-block'}" [showIcon]="true"
+                placeholder="Select Finish Date" showButtonBar="true" [showOtherMonths]="true"
+                [selectOtherMonths]="true"></p-calendar>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <div>
+            <button class="btn btn-primary btn-right" title="Add" type="button" (click)="addColumn()"
+              style="margin-top: 0px"><i class="fa fa-plus"></i></button>
+            <button class="btn btn-primary btn-right" title="Remove" type="button" style="margin-top: 0px"
+              (click)="removeColumn()"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button type="submit" title="Update" (click)="submit()" class="btn btn-primary btn-right">Update</button>
+          <button type="button" title="cancel" class="btn btn-danger btn-right" (click)="Cancle()">Cancel</button>
+
+        </div>
+      </div>
+
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<div class="row">
+    <div class="col-sm-12">
+        <span *ngIf="is_load">
+        <app-card >
+      
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <h6 title="Session Type">Session Type</h6>
+                    <input type="text" title="Session Type" class="form-control" name="type" 
+                        [(ngModel)]="session.SessionType" readonly id="type" readonly>
+
+                </div>
+                <div class="col-sm-6">
+                        <h6 title="Title">Title</h6>
+                        <input type="text" title="Title" class="form-control" name="title" 
+                            [(ngModel)]="session.title" readonly id="title" readonly>
+    
+                    </div>
+            </div>
+         
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <h6 title="Address">Address</h6>
+                    <input type="text" title="Address" class="form-control" name="address" 
+                        [(ngModel)]="session.address" id="address" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <h6 title="Description">Description</h6>
+                    <textarea title="Description" class="form-control" name="description" 
+                        [(ngModel)]="session.description" id="description" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <h6 title="Image">Image</h6>
+                </div>
+                <div class="col-md-12">
+                    <ul *ngIf="session.photo!= ''" style="display:inline-block">
+
+                        <li> <img title="View Image" *ngFor="let photo of session.photo" src="{{photoApiEndPoint+photo.image}}" width="70px"
+                                height="70px" style="margin: 2px">&nbsp;&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <h6 title="Cost" >Cost</h6>
+                    <input type="text" title="Cost" class="form-control" name="cost" 
+                        [(ngModel)]="session.cost" id="cost" readonly>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="!iscost ? 'hidden' : ''">
+                <div class="col-md-6" >
+                    <h6 title="Cost Amount">Cost Amount</h6>
+                    <input title="Cost Amount" type="text" class="form-control" name="cost" 
+                        [(ngModel)]="session.costAmount" id="cost" readonly>
+                </div>
+                <div class="col-md-6">
+                        <h6 title="Currency">Currency</h6>
+                      
+                        <input title="Currency" type="text" class="form-control" name="currency" 
+                        [(ngModel)]="session.currency" id="currency" readonly>
+                         </div>
+            </div>
+            <div class="form-group row" *ngIf="!iscontact ? 'hidden' : ''">
+                <div class="col-md-6" >
+                    <h6 title="Email">Email</h6>
+                    <input title="Email" type="text" class="form-control" name="cost" 
+                        [(ngModel)]="session.email" id="cost" readonly>
+                </div>
+                <div class="col-md-6">
+                        <h6 title="Contact No">Contact No</h6>
+                      
+                        <input title="Contact No" type="text" class="form-control" name="Contact No" 
+                        [(ngModel)]="session.contactNo" id="currency" readonly>
+                         </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <h6 title="Materials">Materials</h6>
+                    <input type="text" title="Materials" class="form-control" name="materials" 
+                        [(ngModel)]="session.materials" id="materials" readonly>
+                </div>
+               
+            </div>
+                
+            <div class="form-group row">
+                <!-- <div class="col-md-6">
+                    <h6 title="Invitation">Invitation</h6>
+                    <input type="text" title="Invitation" class="form-control" name="invitation" 
+                        [(ngModel)]="session.invitation" id="invitation" readonly>
+                </div> -->
+                <div class="col-md-6">
+                        <h6 title="Participations">Max Participations</h6>
+                        <input type="text" title="Participations" class="form-control" name="max participations" 
+                            [(ngModel)]="session.maxParticipations" id="max participations" readonly>
+                    </div>
+                <div class="col-md-6">
+                        <h6 title="Invitation">Remaining Participations</h6>
+                        <input type="text" title="Remaining Participations" class="form-control" name="remainingParticipations" 
+                            [(ngModel)]="session.remainingParticipations" id="remainingParticipations" readonly>
+                    </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <h6 title="Session Date and Time">Session Date And Time</h6>
+                    <table class="table table-bordered" *ngIf="session.startTime || session.finishTime">
+                      <tr>
+                          <td></td>
+                          <td>From</td>
+                          <td>To</td>
+                      </tr>
+                      <tr>
+                          <td>Date</td>
+                          <td title="Session Start Date">{{session.startTime | date : "dd/MM/yyyy"}}</td>
+                          <td title="Session Finish Date"> {{session.finishTime | date : "dd/MM/yyyy"}}</td>
+                      </tr>
+                      <tr>
+                        <td>Time</td>
+                        <td title="Session Start Time">{{session.startTime | date:'shortTime':'UTC'}}</td>
+                        <td title="Session Finish Time"> {{session.finishTime | date:'shortTime':'UTC'}}</td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+                        <div class="form-group row">
+                <div class="col-md-12">
+                    <h6 title="Session Time Table">Time Table</h6>
+                    <table class="table table-bordered">
+                        <tr *ngIf="session.sessionPeriod">
+                            <td>Date</td>
+                            <td>Start Time</td>
+                            <td>Finish Time</td>
+                        </tr>
+                        <tr *ngFor="let s of session.sessionPeriod">
+                            <td>{{s.startTime | date : "dd/MM/yyyy"}}</td>
+                            <td>{{s.startTime | date:'shortTime':'UTC' }}</td>
+                            <td>{{s.finishTime | date:'shortTime':'UTC' }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="!routeMode">
+                <div class="col-sm-12">
+                    <button type="button" title="cancel" class="btn btn-danger btn-right" (click)="Cancle()">Cancel</button>
+
+                </div>
+            </div>
+       
+        </app-card>
+    </span>
+    </div>
+</div>

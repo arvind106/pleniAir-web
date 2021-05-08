@@ -1,0 +1,75 @@
+<!-- /*****************
+* @Project - Pleinair
+* @Comapny - Samcom Technobrains.
+* @author - Viraj Anil Gujar (#VAG)
+* @email - viraj@samcomtechnobrains.com
+* @Created_Date - Unknown
+* @Updated_Date - 30-May-19
+* For Admin panel. Seesion Listing Page.
+******************/ -->
+
+<div class="row">
+    <div class="col-sm-4">
+      <input #gb type="text" class="form-control text1" placeholder="Global search">
+    </div>
+    <div class="col-sm-4">
+      <button type="button" title="Public PleinAir Session" class="btn btn-primary btn-round btn-right " [ngClass]="status ? 'active': ''" (click)="getPublicSession()" *ngIf="!isPublic">Check New Public PleinAir Session</button>
+      <button type="button" title ="Private PleinAir Session"class="btn btn-primary btn-round btn-right" [ngClass]="status1 ? 'active': ''" (click)="getPrivateSession()" *ngIf="isPublic">Check New private PleinAir Session</button>
+    </div>
+   
+    </div><br>
+    
+  
+  <div class="row">
+    <div class="col-sm-12">
+     
+       <app-card title="{{ isPublic ? 'New Public PleinAir session List' :'New private PleinAir session List' | titlecase}}"  [classHeader]="true" [blockClass]="'table-border-style'">
+        
+        <div class="table-responsive" >
+          <p-dataTable #dt [value]="Sessions"   [rows]="10" [tableStyle]="{'table-layout':'auto'}" [paginator]="true" [pageLinks]="3" [globalFilter]="gb">
+            <p-column *ngIf="dt.isEmpty()" header="No records found"></p-column>
+            <p-column header="Sr.No." *ngIf="!dt.isEmpty()" [style]="{width:'7%','text-align':'center'}">
+              <ng-template let-i="rowIndex" pTemplate="body">
+                {{i+1}}
+              </ng-template>
+            </p-column>
+            <p-column field="title" *ngIf="!dt.isEmpty()" header="Title" [sortable]="true"></p-column>
+            <p-column field="userId.name"*ngIf="!dt.isEmpty()"  header="Creater Name" ></p-column>
+            <p-column field="cost"*ngIf="!dt.isEmpty()"  header="Cost Amount" [style]="{width:'10%','text-align':'center'}">
+              <ng-template let-row="rowData" pTemplate="body">
+                <div>
+                  {{row.cost}} &nbsp;{{row.costAmount == 0 ? '' : row.co}}
+                </div>
+              </ng-template>
+            </p-column>
+            <p-column field="startTime" *ngIf="!dt.isEmpty()" header="Start Date & Time" [sortable]="true">
+              <ng-template let-row="rowData" pTemplate="body">
+                {{row.startTime | date : 'short':'UTC'}}
+              </ng-template>
+            </p-column>
+            <p-column field="finishTime"*ngIf="!dt.isEmpty()"  header="Finish Date & Time" [sortable]="true">
+              <ng-template let-row="rowData" pTemplate="body">
+                {{row.finishTime | date : 'short':'UTC'}}
+              </ng-template>
+            </p-column>
+            <p-column header="Action" *ngIf="!dt.isEmpty()" [style]="{'text-align':'center'}">
+              <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+              
+                <a href="javascript:;" (click)="GoToEditUser(user._id)" title="View">
+                  <button _ngcontent-c11="" title="View" class="btn btn-primary" type="button">
+                    <i _ngcontent-c11="" class="fa fa-eye"></i>
+                  </button>
+                </a>&nbsp;
+                <a href="javascript:;"  (click)="deleteSession(user._id)">
+                  <button  title="Delete" class="btn btn-danger" type="button">
+                    <i  class="fa fa-trash"></i>
+                  </button>
+                </a>
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </div>
+      </app-card>
+    
+    </div>
+  </div>

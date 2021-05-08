@@ -1,0 +1,59 @@
+
+
+<div class="row">
+  <div class="col-sm-4">
+    <input #gb type="text" class="form-control text1" placeholder="Global search">
+  </div>
+
+</div><br>
+
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="' New pleinAir Location List'" [classHeader]="true" [blockClass]="'table-border-style'">
+      <div class="table-responsive">
+        <p-dataTable #dt [value]="pops" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [paginator]="true" [pageLinks]="3" [globalFilter]="gb">
+          <p-column *ngIf="dt.isEmpty()" header="No records found"></p-column>
+          <p-column header="Sr.No." *ngIf="!dt.isEmpty()" [style]="{width:'7%','text-align':'center'}">
+            <ng-template let-i="rowIndex" pTemplate="body">
+              {{i+1}}
+            </ng-template>
+          </p-column>
+          <p-column field="title" header="Title" *ngIf="!dt.isEmpty()" [sortable]="true"></p-column>
+          <!-- <p-column field="userId.name" header="Creater Name" ></p-column> -->
+          <!-- <p-column field="address" header="Address" [style]="{width:'30%','text-align':'center'}">          </p-column> -->
+           <p-column field="create_date" header="Created Date" *ngIf="!dt.isEmpty()" [sortable]="true">
+            <ng-template let-row="rowData" pTemplate="body">
+              {{row.create_date | date : "yyyy-MM-dd"}}
+            </ng-template>
+          </p-column>
+          <p-column field="last_updated" header="Last Updated Date" *ngIf="!dt.isEmpty()" [sortable]="true">
+            <ng-template let-row="rowData" pTemplate="body">
+              {{row.last_updated | date : "yyyy-MM-dd "}}
+            </ng-template>
+          </p-column>
+          
+          <p-column header="Action" [style]="{'text-align':'center'}" *ngIf="!dt.isEmpty()">
+            <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+              <a class="edit_icon" href="javascript:;" (click)="GoToEdit(user._id)" title="View">
+                <button _ngcontent-c11="" title="View" class="btn btn-delete btn-primary" type="button">
+                  <i _ngcontent-c11="" class="fa fa-eye"></i>
+                </button>
+              </a>&nbsp;
+              <!-- <a href="javascript:;" (click)="editPop(user._id)" >
+               <button title="Edit" class="btn btn-delete btn-primary" type="button">
+                 <i class="fa fa-edit"></i>
+               </button>
+             </a>&nbsp; -->
+             <a href="javascript:;" (click)="deletePop(user._id)" >
+               <button  title="Delete" class="btn btn-delete btn-danger" type="button">
+                 <i  class="fa fa-trash"></i>
+               </button>
+             </a>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+       
+      </div>
+    </app-card>
+  </div>
+</div>

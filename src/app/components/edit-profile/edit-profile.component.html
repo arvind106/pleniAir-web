@@ -1,0 +1,39 @@
+<div class="row">
+  <p-growl></p-growl>
+  <div class="col-sm-12">
+    <app-card >
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <h6>Name<sup>*</sup></h6>
+          <input type="text" class="form-control" name="user_name"  [(ngModel)]="UserData.name"
+            id="user_name" placeholder="Enter Name">
+        </div>
+        <div class="col-sm-6">
+          <h6>Email</h6>
+          <input type="text" class="form-control" placeholder="Enter Email" name="user_name"
+            [(ngModel)]="UserData.email" id="email" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div style="padding-left: 15px;">
+          <h6>Image</h6>
+          <label class="fileContainer" >
+            <input type="file" (change)="onSelectFile($event)" accept="image/*"/>
+
+          </label>
+        </div>
+        <div class="col-md-3" *ngIf="url">
+          <img src="{{url}}" width="70px" height="70px" alt="" style="cursor: pointer;">
+          <br />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button type="submit" title="save" (click)="UserSave(UserData)"
+            class="btn btn-primary btn-right">Save</button>
+          <button type="button" title="cancel" class="btn btn-danger btn-right" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>

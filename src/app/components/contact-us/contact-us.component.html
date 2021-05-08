@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-4">
+    <input #gb type="text" class="form-control text1" placeholder="Global search">
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Contact Us List'" [classHeader]="true" [blockClass]="'table-border-style'">
+      <div class="table-responsive">
+        <p-dataTable #dt [value]="contacts" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [paginator]="true"
+          [pageLinks]="3" [globalFilter]="gb">
+          <p-column *ngIf="dt.isEmpty()" header="No records found"></p-column>
+          <p-column header="Sr.No." *ngIf="!dt.isEmpty()" [style]="{width:'7%','text-align':'center'}">
+            <ng-template let-i="rowIndex" pTemplate="body">
+              {{i+1}}
+            </ng-template>
+          </p-column>
+          <p-column field="name" header="Name" *ngIf="!dt.isEmpty()" [sortable]="true" [style]="{width:'30%'}">
+          </p-column>
+          <p-column field="email" header="Email" *ngIf="!dt.isEmpty()" [style]="{width:'30%'}"></p-column>
+          <p-column field="description" header="Description" *ngIf="!dt.isEmpty()" [sortable]="true"></p-column>
+
+        </p-dataTable>
+      </div>
+    </app-card>
+  </div>
+</div>

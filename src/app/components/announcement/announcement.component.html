@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-sm-4">
+        <input #gb type="text" class="form-control text1" placeholder="Global search">
+    </div>
+    <div class="col-sm-8">
+
+        <button class="btn btn-primary btn-round btn-right" title="Add" (click)="add()">Add Public Announcement</button>
+
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="'Public Announcement List'" [classHeader]="true">
+
+            <div class="table-responsive feed_table">
+                <p-dataTable #dt [value]="announcementList" [rows]="10" [tableStyle]="{'table-layout':'auto'}"
+                    [paginator]="true" [pageLinks]="3" [globalFilter]="gb">
+                    <p-column *ngIf="dt.isEmpty()" header="No records found"></p-column>
+                    <p-column header="Sr.No." *ngIf="!dt.isEmpty()" [style]="{width:'7%','text-align':'center'}">
+                        <ng-template let-i="rowIndex" pTemplate="body">
+                            {{i+1}}
+                        </ng-template>
+                    </p-column>
+                    <p-column field="title" *ngIf="!dt.isEmpty()" header="Title" [sortable]="true"></p-column>
+                    <p-column field="date" *ngIf="!dt.isEmpty()" header="Date" [sortable]="true">
+                        <ng-template let-row="rowData" let-i="rowIndex" pTemplate="body">
+                            {{row.date | date : "dd-MM-yyyy"}}
+                        </ng-template>
+                    </p-column>
+                    <p-column field="create_date" header="Created Date" *ngIf="!dt.isEmpty()" [sortable]="true">
+                        <ng-template let-row="rowData" pTemplate="body">
+                            {{row.create_date | date : "yyyy-MM-dd"}}
+                        </ng-template>
+                    </p-column>
+                    <p-column header="Action" *ngIf="!dt.isEmpty()" [style]="{'text-align':'center'}">
+                        <ng-template let-ann="rowData" let-i="rowIndex" pTemplate="body">
+
+                            <button _ngcontent-c11="" title="View" (click)="view(ann._id)"
+                                class="btn btn-delete btn-primary" type="button">
+                                <i _ngcontent-c11="" class="fa fa-eye"></i>
+                            </button>
+                            &nbsp;
+
+                            <button _ngcontent-c11="" title="Edit " (click)="Edit(ann._id)"
+                                class="btn btn-delete btn-primary" type="button">
+                                <i _ngcontent-c11="" class="fa fa-edit"></i>
+                            </button>
+                            &nbsp;
+
+                            <button _ngcontent-c11="" (click)="delete(ann._id)" title="Delete "
+                                class="btn btn-delete btn-danger" type="button">
+                                <i _ngcontent-c11="" class="fa fa-trash-o"></i>
+                            </button>
+
+
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+
+            </div>
+        </app-card>
+    </div>
+</div>

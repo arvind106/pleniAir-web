@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card>
+                <div class="form-group row">
+                        <div class="col-md-6">
+                          <h6>Language<sup>*</sup></h6>
+                
+                          <select class="form-control" title="Select Language" name="Language" [(ngModel)]="Privacy.language_code"
+                            id="language" selected="setLanguage" (change)="getData()" [disabled]="isDisabled">
+                            <option value="">Select Language</option>
+                            <option value="en">English</option>
+                            <option value="he">Hebrew </option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="it">Italian </option>
+                          </select>
+                          </div>
+                    </div>
+                    <span *ngIf="is_load">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <h6>Title<sup>*</sup></h6>
+                    <input type="text" class="form-control" name="title" [(ngModel)]="Privacy.title" #name="ngModel"
+                        id="title" placeholder="Title">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <h6>Description<sup>*</sup></h6>
+                    <p-editor [placeholder]="'Enter Description'" [ngModelOptions]="{standalone: true}"
+                        name="description" [(ngModel)]="Privacy.description" #content="ngModel"
+                        [style]="{'height':'320px'}"></p-editor>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <button type="submit" title="Save" (click)="PrivacySave()"
+                        class="btn btn-primary btn-right">Save</button>
+                    <button type="submit" title="Clear" (click)="PrivacyClear()"
+                        class="btn btn-danger btn-right">Clear</button>
+                </div>
+            </div>
+            </span>
+        </app-card>
+    </div>
+</div>

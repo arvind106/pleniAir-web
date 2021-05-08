@@ -1,0 +1,74 @@
+<!-- /*****************
+* @Project - Pleinair
+* @Comapny - Samcom Technobrains.
+* @author - Madhuree Vamja
+* @email - madhuree@samcomtechnobrains.com
+* @Created_Date - Unknown
+* @Updated_Date - 30-May-19
+* For Admin panel. user Listing Page.
+******************/ -->
+
+<div class="row">
+  <div class="col-sm-4">
+    <input #gb type="text" class="form-control text1" placeholder="Global search">
+  </div>
+
+</div><br>
+
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'Users List'"  [classHeader]="true" [blockClass]="'table-border-style'">
+      <div class="table-responsive">
+        <p-dataTable #dt [value]="users" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [paginator]="true" [pageLinks]="3" [globalFilter]="gb">
+          <p-column *ngIf="dt.isEmpty()" header="No records found"></p-column>
+          <p-column header="Sr.No." *ngIf="!dt.isEmpty()" [style]="{width:'7%','text-align':'center'}">
+            <ng-template let-i="rowIndex" pTemplate="body">
+              {{i+1}}
+            </ng-template>
+          </p-column>
+          <p-column field="name" *ngIf="!dt.isEmpty()"header="Name" [sortable]="true" ></p-column>
+          <!-- <p-column field="facebook" header="Facebook Id"></p-column> -->
+          <!-- <p-column field="address" header="Address" [style]="{width:'30%','text-align':'center'}">          </p-column> -->
+          <p-column field="email" *ngIf="!dt.isEmpty()" header="Email" [sortable]="true"></p-column>
+         
+          <p-column header="Block/Unblock" [style]="{'text-align':'center'}" *ngIf="!dt.isEmpty()">
+            <ng-template let-row="rowData" let-i="rowIndex" pTemplate="body" >
+              <button type="button" style="width: 100px;" [ngClass]="!row.isBlocked ? 'btn-primary': 'btn-danger'" (click)="blockUnblock(row)" class="btn" >
+                {{row.isBlocked==true ? 'Unblock' : 'Block'}}
+              </button>
+            </ng-template>
+          </p-column>
+          <!-- <p-column header="Favourites" *ngIf="!dt.isEmpty()" [style]="{'text-align':'center'}">
+              <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+                <a class="edit_icon" href="javascript:;" (click)="GetFavouritepop(user._id)" title="View Favourite Scenic Location">
+                  <button _ngcontent-c11="" class="btn btn-delete btn-primary" style="text-align: center" type="button">
+                    <i _ngcontent-c11="" class="fa fa-heart" ></i>
+                  </button>
+                </a>&nbsp;
+                <a class="edit_icon" href="javascript:;" (click)="GetFavouritesession(user._id)" title="View Favourite Outdoor Session">
+                    <button _ngcontent-c11="" class="btn btn-delete btn-primary" style="text-align: center" type="button">
+                      <i _ngcontent-c11="" class="fa fa-star" ></i>
+                    </button>
+                  </a>
+              </ng-template>
+            </p-column> -->
+          
+          <p-column header="Action" *ngIf="!dt.isEmpty()" [style]="{'text-align':'center'}">
+            <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+              <a class="edit_icon" href="javascript:;" (click)="GoToEdit(user._id)" title="View">
+                <button _ngcontent-c11="" class="btn btn-delete btn-primary" style="text-align: center" type="button">
+                  <i _ngcontent-c11="" class="fa fa-eye" ></i>
+                </button>
+              </a>&nbsp;
+                 <a href="javascript:;" (click)="Delete(user._id)" >
+               <button  title="Delete" class="btn btn-delete btn-danger" style="text-align: center" type="button">
+                 <i  class="fa fa-trash"></i>
+               </button>
+             </a>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+      </div>
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<!-- /*****************
+* @Project - Pleinair
+* @Comapny - Samcom Technobrains.
+* @author - Viraj Anil Gujar (#VAG)
+* @email - viraj@samcomtechnobrains.com
+* @Created_Date - Unknown
+* @Updated_Date - 30-May-19
+* For Admin panel. Seesion Listing Page.
+******************/ -->
+
+<div class="row">
+    <div class="col-sm-4">
+      <input #gb type="text" class="form-control text1" placeholder="Global search">
+    </div>
+  
+    </div><br>
+    
+  
+  <div class="row">
+    <div class="col-sm-12">
+     
+       <app-card title="Favourite New PleinAir Session List"  [classHeader]="true" [blockClass]="'table-border-style'">
+        
+        <div class="table-responsive" >
+          <p-dataTable #dt [value]="Sessions"   [rows]="10" [tableStyle]="{'table-layout':'auto'}" [paginator]="true" [pageLinks]="3" [globalFilter]="gb">
+            <p-column *ngIf="dt.isEmpty()" header="No records found"></p-column>
+            <p-column header="Sr.No." *ngIf="!dt.isEmpty()" [style]="{width:'7%','text-align':'center'}">
+              <ng-template let-i="rowIndex" pTemplate="body">
+                {{i+1}}
+              </ng-template>
+            </p-column>
+            <p-column field="sessionId.title" *ngIf="!dt.isEmpty()" header="Title" [sortable]="true" ></p-column>
+         
+            <p-column field="startTime" *ngIf="!dt.isEmpty()" header="Start Date & Time" [sortable]="true" >
+              <ng-template let-row="rowData" pTemplate="body">
+                {{row.sessionId.startTime | date : 'short':'UTC'}}
+              </ng-template>
+            </p-column>
+            <p-column field="finishTime"*ngIf="!dt.isEmpty()"  header="Finish Date & Time" [sortable]="true">
+              <ng-template let-row="rowData" pTemplate="body">
+                {{row.sessionId.finishTime | date : 'short':'UTC'}}
+              </ng-template>
+            </p-column>
+            <p-column header="Action" *ngIf="!dt.isEmpty()" [style]="{'text-align':'center'}">
+              <ng-template let-user="rowData" let-i="rowIndex" pTemplate="body">
+              
+                <a href="javascript:;" (click)="viewSession(user.sessionId._id)" title="View">
+                  <button _ngcontent-c11="" title="View" class="btn btn-primary" type="button">
+                    <i _ngcontent-c11="" class="fa fa-eye"></i>
+                  </button>
+                </a>&nbsp;
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </div>
+      </app-card>
+    
+    </div>
+  </div>
+

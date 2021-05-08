@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-sm-12">
+      <span *ngIf="is_load">
+     <app-card >
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <h6>Name</h6>
+            <input type="text" class="form-control" name="user_name" [disabled]="routeMode" [(ngModel)]="user.name"
+                    id="user_name" readonly>
+  
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <h6>Facebook Id</h6>
+            <input type="text" class="form-control" name="Id" [disabled]="routeMode" [(ngModel)]="user.facebook"  id="Id"
+              readonly   >
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-2">
+            <h6>Image</h6>
+          </div>
+          <div class="col-md-3">   
+            <img *ngIf="photo !=''" src="{{user.photo}}" width="70px" height="70px"><br/>
+          </div>
+        
+
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+              <h6>Email</h6>
+              <input type="text" class="form-control" name="email" [disabled]="routeMode" [(ngModel)]="user.email"  id="email"
+                 readonly    >
+            </div>
+            <div class="col-sm-6">
+              <h6>Mobile no</h6>
+              <input type="text" class="form-control" name="mobile_no" [disabled]="routeMode" [(ngModel)]="user.mobile_no"  id="mobile_no"
+                 readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <h6>Role</h6>
+              <input type="text" class="form-control" name="Role" [disabled]="routeMode" [(ngModel)]="user.role"  id="role"
+                   readonly  >
+            </div>
+          </div>
+        <div class="form-group row" *ngIf="!routeMode" >
+          <div class="col-sm-12">
+           
+              <button type="button" title="Cancel" (click)=" Cancel()" class="btn btn-danger btn-right">Cancel</button>
+           
+          </div>
+        </div>
+      </app-card>
+    </span>
+    </div>
+  </div>
+  
+  
